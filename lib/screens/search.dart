@@ -34,6 +34,7 @@ class _SearchScreenState extends State<SearchScreen> {
       // ),
       child: TextField(
         controller: _controller,
+        autofocus: true,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.search),
           border: OutlineInputBorder(),
