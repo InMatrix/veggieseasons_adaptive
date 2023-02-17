@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:veggieseasons_adaptive/data/veggie.dart';
 import 'package:veggieseasons_adaptive/widgets/info_view.dart';
+import 'package:veggieseasons_adaptive/widgets/trivia_view.dart';
 
 class Details extends StatelessWidget {
   const Details(this.veggie, {super.key});
@@ -77,7 +78,10 @@ class _DetailsSectionsState extends State<DetailsSections> {
             });
           },
         ),
-        InfoView(widget.veggie),
+        if (sectionView == DetailsSection.facts)
+          InfoView(widget.veggie)
+        else
+          TriviaView(widget.veggie),
       ],
     );
   }

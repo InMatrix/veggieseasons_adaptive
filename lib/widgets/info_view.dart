@@ -4,8 +4,6 @@ import 'package:veggieseasons_adaptive/styles.dart';
 
 class InfoView extends StatelessWidget {
   const InfoView(this.veggie, {super.key});
-
-  /// Veggie to be displayed by the card.
   final Veggie veggie;
 
   @override
