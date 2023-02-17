@@ -101,19 +101,24 @@ class VeggieCategorySettingsScreen extends StatelessWidget {
       body: ListView(
         children: [
           for (var item in VeggieCategory.values)
-            ListTile(
-              title:
-                  Text(item.name, style: Theme.of(context).textTheme.bodyLarge),
-              trailing: Switch.adaptive(
-                value: false,
-                onChanged: (value) => {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: const Text("The switch doesn't work yet."),
-                    ),
+            Column(
+              children: [
+                ListTile(
+                  title: Text(item.name,
+                      style: Theme.of(context).textTheme.bodyLarge),
+                  trailing: Switch.adaptive(
+                    value: false,
+                    onChanged: (value) => {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: const Text("The switch doesn't work yet."),
+                        ),
+                      ),
+                    },
                   ),
-                },
-              ),
+                ),
+                Divider(),
+              ],
             )
         ],
       ),
