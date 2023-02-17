@@ -5,8 +5,8 @@ import 'package:veggieseasons_adaptive/data/veggie.dart';
 import 'package:veggieseasons_adaptive/widgets/info_view.dart';
 import 'package:veggieseasons_adaptive/widgets/trivia_view.dart';
 
-class Details extends StatelessWidget {
-  const Details(this.veggie, {super.key});
+class DetailsScreen extends StatelessWidget {
+  const DetailsScreen(this.veggie, {super.key});
 
   /// Veggie to be displayed by the bottom sheet.
   final Veggie veggie;

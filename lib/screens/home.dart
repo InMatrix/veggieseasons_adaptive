@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:veggieseasons_adaptive/data/veggie_data.dart';
+import 'package:veggieseasons_adaptive/screens/search.dart';
+import 'package:veggieseasons_adaptive/screens/settings.dart';
 import 'package:veggieseasons_adaptive/widgets/veggie_card.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -27,16 +29,8 @@ class _MyHomePageState extends State<MyHomePage> {
           alignment: Alignment.center,
           child: const Text('TODO: My Garden'),
         ),
-        Container(
-          color: Colors.blue,
-          alignment: Alignment.center,
-          child: const Text('TODO: Search'),
-        ),
-        Container(
-          color: Colors.blue,
-          alignment: Alignment.center,
-          child: const Text('TODO: Settings'),
-        ),
+        SearchScreen(),
+        SettingScreen(),
       ][currentPageIndex],
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
