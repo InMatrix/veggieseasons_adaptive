@@ -12,11 +12,13 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   late TextEditingController _controller;
+  late String terms;
 
   @override
   void initState() {
     super.initState();
     _controller = TextEditingController();
+    terms = "";
   }
 
   @override
@@ -25,13 +27,13 @@ class _SearchScreenState extends State<SearchScreen> {
     super.dispose();
   }
 
-  Widget _createSearchBox({bool focus = true}) {
+  void _onTextChanged(String value) {
+    setState(() => terms = value);
+  }
+
+  Widget _createSearchBox() {
     return Padding(
       padding: const EdgeInsets.all(8),
-      // child: CupertinoSearchTextField(
-      //   controller: controller.value,
-      //   focusNode: focus ? focusNode : null,
-      // ),
       child: TextField(
         controller: _controller,
         autofocus: true,
@@ -40,29 +42,14 @@ class _SearchScreenState extends State<SearchScreen> {
           border: OutlineInputBorder(),
           hintText: 'Search',
         ),
-        onSubmitted: (String value) async {
-          await showDialog<void>(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text('Thanks!'),
-                content: Text(
-                    'You typed "$value", which has length ${value.characters.length}.'),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text('OK'),
-                  ),
-                ],
-              );
-            },
-          );
-        },
+        onChanged: _onTextChanged,
       ),
     );
   }
+
+  List<Veggie> _searchVeggies(String terms) => veggies
+      .where((v) => v.name.toLowerCase().contains(terms.toLowerCase()))
+      .toList();
 
   Widget _buildSearchResults(List<Veggie> veggies) {
     if (veggies.isEmpty) {
@@ -96,7 +83,9 @@ class _SearchScreenState extends State<SearchScreen> {
         children: [
           _createSearchBox(),
           Expanded(
-            child: _buildSearchResults(veggies),
+            child: _buildSearchResults(
+                // if the search team is not empty, filter results.
+                terms.isNotEmpty ? _searchVeggies(terms) : veggies),
           ),
         ],
       ),
