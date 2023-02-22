@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:veggieseasons_adaptive/data/adaptation_settings.dart';
 import 'package:veggieseasons_adaptive/data/veggie.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -105,16 +106,29 @@ class VeggieCategorySettingsScreen extends StatelessWidget {
                 ListTile(
                   title: Text(item.name,
                       style: Theme.of(context).textTheme.bodyLarge),
-                  trailing: Switch.adaptive(
-                    value: false,
-                    onChanged: (value) => {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: const Text("The switch doesn't work yet."),
+                  trailing: iOSAdaptation == AdaptationLevel.none
+                      ? Switch(
+                          value: false,
+                          onChanged: (value) => {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content:
+                                    const Text("The switch doesn't work yet."),
+                              ),
+                            ),
+                          },
+                        )
+                      : Switch.adaptive(
+                          value: false,
+                          onChanged: (value) => {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content:
+                                    const Text("The switch doesn't work yet."),
+                              ),
+                            ),
+                          },
                         ),
-                      ),
-                    },
-                  ),
                 ),
                 Divider(),
               ],

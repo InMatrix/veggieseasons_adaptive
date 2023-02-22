@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:veggieseasons_adaptive/data/adaptation_settings.dart';
 import 'package:veggieseasons_adaptive/data/veggie.dart';
 import 'package:veggieseasons_adaptive/styles.dart';
 
@@ -49,12 +50,20 @@ class InfoView extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Switch.adaptive(
-                value: veggie.isFavorite,
-                onChanged: (value) {
-                  // TODO: save favorite
-                },
-              ),
+              if (iOSAdaptation == AdaptationLevel.none)
+                Switch(
+                  value: veggie.isFavorite,
+                  onChanged: (value) {
+                    // TODO: save favorite
+                  },
+                )
+              else
+                Switch.adaptive(
+                  value: veggie.isFavorite,
+                  onChanged: (value) {
+                    // TODO: save favorite
+                  },
+                ),
               const SizedBox(width: 8),
               Text(
                 'Save to Garden',

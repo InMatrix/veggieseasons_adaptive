@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:veggieseasons_adaptive/data/adaptation_settings.dart';
 import 'package:veggieseasons_adaptive/data/veggie.dart';
 import 'package:veggieseasons_adaptive/styles.dart';
 import 'package:veggieseasons_adaptive/screens/details.dart';
@@ -64,7 +65,6 @@ class VeggieHeadline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const usingListTile = false;
     final themeData = Theme.of(context);
     return GestureDetector(
       onTap: () {
@@ -77,7 +77,9 @@ class VeggieHeadline extends StatelessWidget {
         );
       },
       // build each item using either `_itemRow` or `_itemListTile`
-      child: usingListTile ? _itemListTile(themeData) : _itemRow(themeData),
+      child: iOSAdaptation == AdaptationLevel.none
+          ? _itemListTile(themeData)
+          : _itemRow(themeData),
     );
   }
 
