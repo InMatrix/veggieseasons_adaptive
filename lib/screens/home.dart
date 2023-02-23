@@ -95,6 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
+      appBar: currentPageIndex == 1 ? AppBar(title: Text("My Garden")) : null,
     );
   }
 
