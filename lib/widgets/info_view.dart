@@ -3,10 +3,15 @@ import 'package:veggieseasons_adaptive/data/adaptation_settings.dart';
 import 'package:veggieseasons_adaptive/data/veggie.dart';
 import 'package:veggieseasons_adaptive/styles.dart';
 
-class InfoView extends StatelessWidget {
+class InfoView extends StatefulWidget {
   const InfoView(this.veggie, {super.key});
   final Veggie veggie;
 
+  @override
+  State<InfoView> createState() => _InfoViewState();
+}
+
+class _InfoViewState extends State<InfoView> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -18,11 +23,11 @@ class InfoView extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               Text(
-                veggie.categoryName!.toUpperCase(),
+                widget.veggie.categoryName!.toUpperCase(),
                 style: Theme.of(context).textTheme.labelLarge,
               ),
               const Spacer(),
-              for (Season season in veggie.seasons) ...[
+              for (Season season in widget.veggie.seasons) ...[
                 const SizedBox(width: 12),
                 Padding(
                   padding: Styles.seasonIconPadding[season]!,
@@ -37,31 +42,35 @@ class InfoView extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            veggie.name,
+            widget.veggie.name,
             style: Theme.of(context).textTheme.headlineLarge,
           ),
           const SizedBox(height: 8),
           Text(
-            veggie.shortDescription,
+            widget.veggie.shortDescription,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
-          ServingInfoChart(veggie),
+          ServingInfoChart(widget.veggie),
           const SizedBox(height: 24),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               if (iOSAdaptation == AdaptationLevel.none)
                 Switch(
-                  value: veggie.isFavorite,
+                  value: widget.veggie.isFavorite,
                   onChanged: (value) {
-                    // TODO: save favorite
+                    setState(() {
+                      widget.veggie.isFavorite = value;
+                    });
                   },
                 )
               else
                 Switch.adaptive(
-                  value: veggie.isFavorite,
+                  value: widget.veggie.isFavorite,
                   onChanged: (value) {
-                    // TODO: save favorite
+                    setState(() {
+                      widget.veggie.isFavorite = value;
+                    });
                   },
                 ),
               const SizedBox(width: 8),

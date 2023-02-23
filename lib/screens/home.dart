@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:veggieseasons_adaptive/data/veggie_data.dart';
+import 'package:veggieseasons_adaptive/screens/favorites.dart';
 import 'package:veggieseasons_adaptive/screens/search.dart';
 import 'package:veggieseasons_adaptive/screens/settings.dart';
 import 'package:veggieseasons_adaptive/widgets/veggie_card.dart';
@@ -24,11 +25,12 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: <Widget>[
         _buildVeggieList(dateString),
-        Container(
-          color: Colors.green,
-          alignment: Alignment.center,
-          child: const Text('TODO: My Garden'),
-        ),
+        // Container(
+        //   color: Colors.green,
+        //   alignment: Alignment.center,
+        //   child: const Text('TODO: My Garden'),
+        // ),
+        FavoritesScreen(),
         SearchScreen(),
         SettingScreen(),
       ][currentPageIndex],
