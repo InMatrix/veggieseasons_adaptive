@@ -12,7 +12,7 @@ The app ports [Veggie Seasons](https://github.com/flutter/samples/tree/main/vegg
 
 You can run the app with three different levels of adaptation for iOS, defined in the `iOSAdaptation` variable in [adaptation_settings.dart](https://github.com/InMatrix/veggieseasons_adaptive/blob/main/lib/data/adaptation_settings.dart). When you run the app with `AdaptationLevel.none` (the default), it comes with a UI in full Material Design 3 without any customization for iOS users. 
 
-The `minimal` and `more` levels provide increasingly more adaptations based on Apple's [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/guidelines/overview/). Both levels are being defined and implemented through this experimentation (see #6 and #7).  
+The `minimal` and `more` levels provide increasingly more adaptations based on Apple's [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/guidelines/overview/). Both levels are being defined and implemented through this experimentation (see https://github.com/InMatrix/veggieseasons_adaptive/issues/6 and https://github.com/InMatrix/veggieseasons_adaptive/issues/7).  
 
 ```dart
 enum AdaptationLevel {
