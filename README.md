@@ -10,18 +10,18 @@ The app ports [Veggie Seasons](https://github.com/flutter/samples/tree/main/vegg
 
 ## Run the app with a specific adaptation level
 
-You can run the app with three different levels of adaptation for iOS, defined in the `iOSAdaptation` variable in [adaptation_settings.dart](https://github.com/InMatrix/veggieseasons_adaptive/blob/main/lib/data/adaptation_settings.dart). When you run the app with `AdaptationLevel.none` (the default), it comes with a UI in full Material Design 3 without any customization for iOS users. 
+You can run the app with three different levels of adaptation for iOS, defined in the `iOSAdaptation` variable in [adaptation_settings.dart](https://github.com/InMatrix/veggieseasons_adaptive/blob/main/lib/data/adaptation_settings.dart). When you run the app with `AdaptationLevel.minimal` (the default), it comes with a UI in full Material Design 3 with slight adaptations automatically done by Flutter as documented in [Platform-specific behaviors and adaptations](https://docs.flutter.dev/resources/platform-adaptations).
 
-The `minimal` and `more` levels provide increasingly more adaptations based on Apple's [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/guidelines/overview/). Both levels are being defined and implemented through this experimentation (see https://github.com/InMatrix/veggieseasons_adaptive/issues/6 and https://github.com/InMatrix/veggieseasons_adaptive/issues/7).  
+The `some` and `more` levels provide increasingly more adaptations based on Apple's [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/guidelines/overview/). Both levels are being defined and implemented through this experimentation (see https://github.com/InMatrix/veggieseasons_adaptive/issues/6 and https://github.com/InMatrix/veggieseasons_adaptive/issues/7, respectively).  
 
 ```dart
 enum AdaptationLevel {
-  none, // m3 default
   minimal,
+  some,
   more,
 }
 
-var iOSAdaptation = AdaptationLevel.none;
+var iOSAdaptation = AdaptationLevel.minimal;
 ```
 
 ## Join the discussions
