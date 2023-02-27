@@ -1,9 +1,55 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:veggieseasons_adaptive/data/adaptation_settings.dart';
 import 'package:veggieseasons_adaptive/data/veggie.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({Key? key}) : super(key: key);
+
+  void _showResetDialog(context,
+      {required String title, required String content}) {
+    if (iOSAdaptation == AdaptationLevel.minimal) {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Yes'),
+              child: const Text('Yes'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'No'),
+              child: const Text('No'),
+            ),
+          ],
+        ),
+      );
+    } else {
+      showCupertinoDialog<void>(
+        context: context,
+        builder: (context) => CupertinoAlertDialog(
+          title: Text(title),
+          content: Text(content),
+          actions: [
+            CupertinoDialogAction(
+              isDestructiveAction: true,
+              child: const Text('Yes'),
+              onPressed: () async {
+                Navigator.pop(context);
+              },
+            ),
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              child: const Text('No'),
+              onPressed: () => Navigator.pop(context),
+            )
+          ],
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,19 +74,13 @@ class SettingScreen extends StatelessWidget {
               ),
               title: Text("Calorie Target"),
               trailing: Text("2000"),
-              onTap: () => showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Set Calorie Target'),
-                  content: const Text('This page is under construction'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'Dismiss'),
-                      child: const Text('Dismiss'),
-                    ),
-                  ],
-                ),
-              ),
+              onTap: () => {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text("This page is under construction"),
+                  ),
+                )
+              },
             ),
             ListTile(
               leading: Icon(
@@ -62,25 +102,10 @@ class SettingScreen extends StatelessWidget {
                 size: 32.0,
               ),
               title: Text("Restore Defaults"),
-              // TODO: try https://pub.dev/packages/adaptive_dialog
-              onTap: () => showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Are you sure?'),
-                  content: const Text(
-                      'Are you sure you want to reset the current settings?'),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'Yes'),
-                      child: const Text('Yes'),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'No'),
-                      child: const Text('No'),
-                    ),
-                  ],
-                ),
-              ),
+              onTap: () => _showResetDialog(context,
+                  title: "Are you sure?",
+                  content:
+                      "Are you sure you want to reset the current settings?"),
             )
           ]),
         ),
@@ -106,7 +131,7 @@ class VeggieCategorySettingsScreen extends StatelessWidget {
                 ListTile(
                   title: Text(item.name,
                       style: Theme.of(context).textTheme.bodyLarge),
-                  trailing: iOSAdaptation == AdaptationLevel.none
+                  trailing: iOSAdaptation == AdaptationLevel.minimal
                       ? Switch(
                           value: false,
                           onChanged: (value) => {

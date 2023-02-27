@@ -55,7 +55,7 @@ class _InfoViewState extends State<InfoView> {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (iOSAdaptation == AdaptationLevel.none)
+              if (iOSAdaptation == AdaptationLevel.minimal)
                 Switch(
                   value: widget.veggie.isFavorite,
                   onChanged: (value) {

@@ -77,7 +77,7 @@ class VeggieHeadline extends StatelessWidget {
         );
       },
       // build each item using either `_itemRow` or `_itemListTile`
-      child: iOSAdaptation == AdaptationLevel.none
+      child: iOSAdaptation == AdaptationLevel.minimal
           ? _itemListTile(themeData)
           : _itemRow(themeData),
     );
