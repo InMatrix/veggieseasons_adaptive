@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
+import 'package:veggieseasons_adaptive/data/adaptation_settings.dart';
 import 'package:veggieseasons_adaptive/data/veggie.dart';
+import 'package:veggieseasons_adaptive/styles.dart';
 import 'package:veggieseasons_adaptive/widgets/info_view.dart';
 import 'package:veggieseasons_adaptive/widgets/trivia_view.dart';
 
@@ -57,7 +59,11 @@ class _DetailsSectionsState extends State<DetailsSections> {
     return Column(
       children: [
         SegmentedButton<DetailsSection>(
-          // Doc: https://api.flutter.dev/flutter/material/SegmentedButton-class.html
+          style: iOSAdaptation == AdaptationLevel.minimal
+              ? null
+              : Styles.iOSSegmentedButtonStyle,
+          showSelectedIcon:
+              iOSAdaptation == AdaptationLevel.minimal ? true : false,
           segments: const [
             ButtonSegment<DetailsSection>(
               value: DetailsSection.facts,

@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -239,4 +240,35 @@ abstract class Styles {
   static const ColorFilter desaturatedColorFilter =
       // 222222 is a random color that has low color saturation.
       ColorFilter.mode(Color(0xff222222), BlendMode.saturation);
+
+  static final iOSSegmentedButtonStyle = ButtonStyle(
+    backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+      (Set<MaterialState> states) {
+        if (states.contains(MaterialState.pressed)) {
+          // return Color.fromRGBO(53, 123, 246, 0.2);
+          return CupertinoColors.systemBlue.withOpacity(0.2);
+        } else if (states.contains(MaterialState.selected)) {
+          return CupertinoColors.systemBlue;
+        } else {
+          return Colors.white;
+        }
+      },
+    ),
+    foregroundColor: MaterialStateProperty.resolveWith<Color?>(
+      (Set<MaterialState> states) {
+        if (states.contains(MaterialState.selected)) {
+          return Colors.white;
+        } else {
+          return CupertinoColors.systemBlue;
+        }
+      },
+    ),
+    overlayColor: MaterialStateProperty.all(Colors.transparent),
+    side: MaterialStateProperty.all(
+        BorderSide(color: CupertinoColors.systemBlue)),
+    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    shape: MaterialStatePropertyAll<OutlinedBorder>(RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+    iconSize: MaterialStateProperty.all(0.0),
+  );
 }
