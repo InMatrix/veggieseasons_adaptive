@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:veggieseasons_adaptive/data/adaptation_settings.dart';
 import 'package:veggieseasons_adaptive/data/veggie.dart';
 
+import '../styles.dart';
+
 class SettingScreen extends StatelessWidget {
   const SettingScreen({Key? key}) : super(key: key);
 
@@ -106,10 +108,71 @@ class SettingScreen extends StatelessWidget {
                   title: "Are you sure?",
                   content:
                       "Are you sure you want to reset the current settings?"),
-            )
+            ),
+            Divider(),
+            AdaptationLevelSelector(),
           ]),
         ),
       ],
+    );
+  }
+}
+
+class AdaptationLevelSelector extends StatefulWidget {
+  const AdaptationLevelSelector({
+    super.key,
+  });
+
+  @override
+  State<AdaptationLevelSelector> createState() =>
+      _AdaptationLevelSelectorState();
+}
+
+class _AdaptationLevelSelectorState extends State<AdaptationLevelSelector> {
+  // var selectedAdaptationLevel = iOSAdaptation;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+      child: Column(
+        children: [
+          Text(
+            "Platform adaptation level:",
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
+          SizedBox(height: 10.0),
+          SegmentedButton<AdaptationLevel>(
+            style: iOSAdaptation == AdaptationLevel.minimal
+                ? null
+                : Styles.iOSSegmentedButtonStyle,
+            showSelectedIcon:
+                iOSAdaptation == AdaptationLevel.minimal ? true : false,
+            segments: const [
+              ButtonSegment<AdaptationLevel>(
+                value: AdaptationLevel.minimal,
+                label: Text('Minimal'),
+              ),
+              ButtonSegment<AdaptationLevel>(
+                value: AdaptationLevel.some,
+                label: Text('Some'),
+              ),
+              ButtonSegment<AdaptationLevel>(
+                value: AdaptationLevel.more,
+                label: Text('More'),
+              ),
+            ],
+            selected: <AdaptationLevel>{iOSAdaptation},
+            onSelectionChanged: (Set<AdaptationLevel> newSelection) {
+              setState(() {
+                // By default there is only a single segment that can be
+                // selected at one time, so its value is always the first
+                // item in the selected set.
+                iOSAdaptation = newSelection.first;
+              });
+            },
+          ),
+        ],
+      ),
     );
   }
 }
