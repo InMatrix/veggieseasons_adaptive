@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors_in_immutables
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:veggieseasons_adaptive/data/adaptation_settings.dart';
 import 'package:veggieseasons_adaptive/data/veggie.dart';
@@ -58,31 +59,57 @@ class _DetailsSectionsState extends State<DetailsSections> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SegmentedButton<DetailsSection>(
-          style: iOSAdaptation == AdaptationLevel.minimal
-              ? null
-              : Styles.iOSSegmentedButtonStyle,
-          showSelectedIcon:
-              iOSAdaptation == AdaptationLevel.minimal ? true : false,
-          segments: const [
-            ButtonSegment<DetailsSection>(
-              value: DetailsSection.facts,
-              label: Text('Facts & Info'),
-            ),
-            ButtonSegment<DetailsSection>(
-              value: DetailsSection.trivia,
-              label: Text('Trivia'),
-            ),
+        Column(
+          crossAxisAlignment: iOSAdaptation == AdaptationLevel.more
+              ? CrossAxisAlignment.stretch
+              : CrossAxisAlignment.center,
+          children: [
+            if (iOSAdaptation == AdaptationLevel.more)
+              CupertinoTheme(
+                data: CupertinoThemeData(brightness: Brightness.light),
+                child: CupertinoSegmentedControl<DetailsSection>(
+                  children: const {
+                    DetailsSection.facts: Text(
+                      'Facts & Info',
+                    ),
+                    DetailsSection.trivia: Text(
+                      'Trivia',
+                    )
+                  },
+                  groupValue: sectionView,
+                  onValueChanged: (value) {
+                    setState(() => sectionView = value);
+                  },
+                ),
+              )
+            else
+              SegmentedButton<DetailsSection>(
+                style: iOSAdaptation == AdaptationLevel.minimal
+                    ? null
+                    : Styles.iOSSegmentedButtonStyle,
+                showSelectedIcon:
+                    iOSAdaptation == AdaptationLevel.minimal ? true : false,
+                segments: const [
+                  ButtonSegment<DetailsSection>(
+                    value: DetailsSection.facts,
+                    label: Text('Facts & Info'),
+                  ),
+                  ButtonSegment<DetailsSection>(
+                    value: DetailsSection.trivia,
+                    label: Text('Trivia'),
+                  ),
+                ],
+                selected: <DetailsSection>{sectionView},
+                onSelectionChanged: (Set<DetailsSection> newSelection) {
+                  setState(() {
+                    // By default there is only a single segment that can be
+                    // selected at one time, so its value is always the first
+                    // item in the selected set.
+                    sectionView = newSelection.first;
+                  });
+                },
+              )
           ],
-          selected: <DetailsSection>{sectionView},
-          onSelectionChanged: (Set<DetailsSection> newSelection) {
-            setState(() {
-              // By default there is only a single segment that can be
-              // selected at one time, so its value is always the first
-              // item in the selected set.
-              sectionView = newSelection.first;
-            });
-          },
         ),
         if (sectionView == DetailsSection.facts)
           InfoView(widget.veggie)

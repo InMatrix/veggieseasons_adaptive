@@ -263,6 +263,7 @@ abstract class Styles {
         }
       },
     ),
+    // padding: MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: 40.0)),
     overlayColor: MaterialStateProperty.all(Colors.transparent),
     side: MaterialStateProperty.all(
         BorderSide(color: CupertinoColors.systemBlue)),
