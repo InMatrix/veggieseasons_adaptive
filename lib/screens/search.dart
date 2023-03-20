@@ -5,37 +5,6 @@ import 'package:veggieseasons_adaptive/data/veggie.dart';
 import 'package:veggieseasons_adaptive/data/veggie_data.dart';
 import 'package:veggieseasons_adaptive/widgets/veggie_headline.dart';
 
-// Styling for the Material version of the search box
-class SearchBoxDecoration extends InputDecoration {
-  SearchBoxDecoration(
-      {super.border = const OutlineInputBorder(),
-      super.filled,
-      super.fillColor,
-      super.contentPadding,
-      super.hintStyle,
-      super.prefixIconColor})
-      : super(
-          prefixIcon: Icon(Icons.search),
-          hintText: 'Search',
-        );
-}
-
-// Styling for adapting the Material search box to an iOS look and feel
-class IOSSearchBoxDecoration extends SearchBoxDecoration {
-  IOSSearchBoxDecoration()
-      : super(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.0),
-            borderSide: BorderSide.none,
-          ),
-          filled: true,
-          fillColor: CupertinoColors.lightBackgroundGray,
-          contentPadding: EdgeInsets.symmetric(vertical: 0.0),
-          hintStyle: TextStyle(color: CupertinoColors.secondaryLabel),
-          prefixIconColor: CupertinoColors.secondaryLabel,
-        );
-}
-
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
 
@@ -65,20 +34,47 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget _createSearchBox() {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: TextField(
-        controller: _controller,
-        autofocus: true,
-        cursorColor: iOSAdaptation == AdaptationLevel.minimal
-            ? null
-            : CupertinoColors.activeBlue,
-        decoration: iOSAdaptation == AdaptationLevel.minimal
-            ? SearchBoxDecoration()
-            : IOSSearchBoxDecoration(),
-        onChanged: _onTextChanged,
-      ),
-    );
+    if (iOSAdaptation == AdaptationLevel.minimal) {
+      return Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextField(
+          controller: _controller,
+          autofocus: true,
+          decoration: InputDecoration(
+            prefixIcon: Icon(Icons.search),
+            border: OutlineInputBorder(),
+            hintText: 'Search',
+          ),
+          onChanged: _onTextChanged,
+        ),
+      );
+    } else {
+      return Padding(
+        padding: const EdgeInsets.all(8),
+        child: SizedBox(
+          height: 38.0,
+          child: TextField(
+            controller: _controller,
+            autofocus: true,
+            cursorColor: CupertinoColors.activeBlue,
+            decoration: InputDecoration(
+              prefixIcon: Icon(Icons.search),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12.0),
+                borderSide: BorderSide.none,
+              ),
+              hintText: 'Search',
+              filled: true,
+              fillColor: CupertinoColors.lightBackgroundGray,
+              contentPadding: EdgeInsets.symmetric(vertical: 0.0),
+              hintStyle: TextStyle(color: CupertinoColors.secondaryLabel),
+              prefixIconColor: CupertinoColors.secondaryLabel,
+            ),
+            onChanged: _onTextChanged,
+          ),
+        ),
+      );
+    }
   }
 
   List<Veggie> _searchVeggies(String terms) => veggies
