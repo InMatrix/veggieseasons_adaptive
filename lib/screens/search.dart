@@ -67,19 +67,16 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget _createSearchBox() {
     return Padding(
       padding: const EdgeInsets.all(8),
-      child: SizedBox(
-        height: iOSAdaptation == AdaptationLevel.minimal ? null : 38.0,
-        child: TextField(
-          controller: _controller,
-          autofocus: true,
-          cursorColor: iOSAdaptation == AdaptationLevel.minimal
-              ? null
-              : CupertinoColors.activeBlue,
-          decoration: iOSAdaptation == AdaptationLevel.minimal
-              ? SearchBoxDecoration()
-              : IOSSearchBoxDecoration(),
-          onChanged: _onTextChanged,
-        ),
+      child: TextField(
+        controller: _controller,
+        autofocus: true,
+        cursorColor: iOSAdaptation == AdaptationLevel.minimal
+            ? null
+            : CupertinoColors.activeBlue,
+        decoration: iOSAdaptation == AdaptationLevel.minimal
+            ? SearchBoxDecoration()
+            : IOSSearchBoxDecoration(),
+        onChanged: _onTextChanged,
       ),
     );
   }
