@@ -60,51 +60,25 @@ class _DetailsSectionsState extends State<DetailsSections> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Column(
-          crossAxisAlignment: Platform.isIOS
-              ? CrossAxisAlignment.center
-              : CrossAxisAlignment.stretch,
-          children: [
-            // if (Platform.isIOS)
-            //   CupertinoTheme(
-            //     data: CupertinoThemeData(brightness: Brightness.light),
-            //     child: CupertinoSegmentedControl<DetailsSection>(
-            //       children: const {
-            //         DetailsSection.facts: Text(
-            //           'Facts & Info',
-            //         ),
-            //         DetailsSection.trivia: Text(
-            //           'Trivia',
-            //         )
-            //       },
-            //       groupValue: sectionView,
-            //       onValueChanged: (value) {
-            //         setState(() => sectionView = value);
-            //       },
-            //     ),
-            //   )
-            // else
-            SegmentedButton<DetailsSection>(
-              style: Platform.isIOS ? Styles.iOSSegmentedButtonStyle : null,
-              showSelectedIcon: Platform.isIOS ? false : true,
-              segments: const [
-                ButtonSegment<DetailsSection>(
-                  value: DetailsSection.facts,
-                  label: Text('Facts & Info'),
-                ),
-                ButtonSegment<DetailsSection>(
-                  value: DetailsSection.trivia,
-                  label: Text('Trivia'),
-                ),
-              ],
-              selected: <DetailsSection>{sectionView},
-              onSelectionChanged: (Set<DetailsSection> newSelection) {
-                setState(() {
-                  sectionView = newSelection.first;
-                });
-              },
-            )
+        SegmentedButton<DetailsSection>(
+          style: Platform.isIOS ? Styles.iOSSegmentedButtonStyle : null,
+          showSelectedIcon: Platform.isIOS ? false : true,
+          segments: const [
+            ButtonSegment<DetailsSection>(
+              value: DetailsSection.facts,
+              label: Text('Facts & Info'),
+            ),
+            ButtonSegment<DetailsSection>(
+              value: DetailsSection.trivia,
+              label: Text('Trivia'),
+            ),
           ],
+          selected: <DetailsSection>{sectionView},
+          onSelectionChanged: (Set<DetailsSection> newSelection) {
+            setState(() {
+              sectionView = newSelection.first;
+            });
+          },
         ),
         if (sectionView == DetailsSection.facts)
           InfoView(widget.veggie)
