@@ -244,7 +244,8 @@ abstract class Styles {
   static final iOSSegmentedButtonStyle = ButtonStyle(
     backgroundColor: MaterialStateProperty.resolveWith<Color?>(
       (Set<MaterialState> states) {
-        if (states.contains(MaterialState.pressed)) {
+        if (states.contains(MaterialState.pressed) &&
+            !states.contains(MaterialState.selected)) {
           // return Color.fromRGBO(53, 123, 246, 0.2);
           return CupertinoColors.systemBlue.withOpacity(0.2);
         } else if (states.contains(MaterialState.selected)) {
@@ -269,7 +270,29 @@ abstract class Styles {
         BorderSide(color: CupertinoColors.systemBlue)),
     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
     shape: MaterialStatePropertyAll<OutlinedBorder>(RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+        borderRadius: BorderRadius.all(Radius.circular(6.0)))),
     iconSize: MaterialStateProperty.all(0.0),
+  );
+
+  static final iOSButtonStyle = ButtonStyle(
+    backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+      (Set<MaterialState> states) {
+        if (states.contains(MaterialState.pressed)) {
+          return CupertinoColors.systemBlue.withOpacity(0.2);
+        } else {
+          return CupertinoColors.systemBlue;
+        }
+      },
+    ),
+    foregroundColor: MaterialStateProperty.resolveWith<Color?>(
+      (Set<MaterialState> states) {
+        return Colors.white;
+      },
+    ),
+    shape: MaterialStatePropertyAll<OutlinedBorder>(RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+    padding: MaterialStatePropertyAll(
+        EdgeInsets.symmetric(horizontal: 60.0, vertical: 16.0)),
+    overlayColor: MaterialStateProperty.all(Colors.transparent),
   );
 }

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:veggieseasons_adaptive/data/veggie.dart';
+import 'package:veggieseasons_adaptive/styles.dart';
 
 class TriviaView extends StatelessWidget {
   const TriviaView(this.veggie, {super.key});
@@ -23,6 +26,7 @@ class TriviaView extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.all(8),
                 child: FilledButton(
+                  style: Platform.isIOS ? Styles.iOSButtonStyle : null,
                   child: Text(
                     currentTrivia.answers[i],
                     textAlign: TextAlign.center,
