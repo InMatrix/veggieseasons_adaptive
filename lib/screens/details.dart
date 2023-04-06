@@ -1,8 +1,9 @@
 // ignore_for_file: prefer_const_constructors_in_immutables
 
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:veggieseasons_adaptive/data/adaptation_settings.dart';
 import 'package:veggieseasons_adaptive/data/veggie.dart';
 import 'package:veggieseasons_adaptive/styles.dart';
 import 'package:veggieseasons_adaptive/widgets/info_view.dart';
@@ -60,55 +61,49 @@ class _DetailsSectionsState extends State<DetailsSections> {
     return Column(
       children: [
         Column(
-          crossAxisAlignment: iOSAdaptation == AdaptationLevel.more
-              ? CrossAxisAlignment.stretch
-              : CrossAxisAlignment.center,
+          crossAxisAlignment: Platform.isIOS
+              ? CrossAxisAlignment.center
+              : CrossAxisAlignment.stretch,
           children: [
-            if (iOSAdaptation == AdaptationLevel.more)
-              CupertinoTheme(
-                data: CupertinoThemeData(brightness: Brightness.light),
-                child: CupertinoSegmentedControl<DetailsSection>(
-                  children: const {
-                    DetailsSection.facts: Text(
-                      'Facts & Info',
-                    ),
-                    DetailsSection.trivia: Text(
-                      'Trivia',
-                    )
-                  },
-                  groupValue: sectionView,
-                  onValueChanged: (value) {
-                    setState(() => sectionView = value);
-                  },
+            // if (Platform.isIOS)
+            //   CupertinoTheme(
+            //     data: CupertinoThemeData(brightness: Brightness.light),
+            //     child: CupertinoSegmentedControl<DetailsSection>(
+            //       children: const {
+            //         DetailsSection.facts: Text(
+            //           'Facts & Info',
+            //         ),
+            //         DetailsSection.trivia: Text(
+            //           'Trivia',
+            //         )
+            //       },
+            //       groupValue: sectionView,
+            //       onValueChanged: (value) {
+            //         setState(() => sectionView = value);
+            //       },
+            //     ),
+            //   )
+            // else
+            SegmentedButton<DetailsSection>(
+              style: Platform.isIOS ? Styles.iOSSegmentedButtonStyle : null,
+              showSelectedIcon: Platform.isIOS ? false : true,
+              segments: const [
+                ButtonSegment<DetailsSection>(
+                  value: DetailsSection.facts,
+                  label: Text('Facts & Info'),
                 ),
-              )
-            else
-              SegmentedButton<DetailsSection>(
-                style: iOSAdaptation == AdaptationLevel.minimal
-                    ? null
-                    : Styles.iOSSegmentedButtonStyle,
-                showSelectedIcon:
-                    iOSAdaptation == AdaptationLevel.minimal ? true : false,
-                segments: const [
-                  ButtonSegment<DetailsSection>(
-                    value: DetailsSection.facts,
-                    label: Text('Facts & Info'),
-                  ),
-                  ButtonSegment<DetailsSection>(
-                    value: DetailsSection.trivia,
-                    label: Text('Trivia'),
-                  ),
-                ],
-                selected: <DetailsSection>{sectionView},
-                onSelectionChanged: (Set<DetailsSection> newSelection) {
-                  setState(() {
-                    // By default there is only a single segment that can be
-                    // selected at one time, so its value is always the first
-                    // item in the selected set.
-                    sectionView = newSelection.first;
-                  });
-                },
-              )
+                ButtonSegment<DetailsSection>(
+                  value: DetailsSection.trivia,
+                  label: Text('Trivia'),
+                ),
+              ],
+              selected: <DetailsSection>{sectionView},
+              onSelectionChanged: (Set<DetailsSection> newSelection) {
+                setState(() {
+                  sectionView = newSelection.first;
+                });
+              },
+            )
           ],
         ),
         if (sectionView == DetailsSection.facts)

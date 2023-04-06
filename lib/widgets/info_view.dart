@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:veggieseasons_adaptive/data/adaptation_settings.dart';
 import 'package:veggieseasons_adaptive/data/veggie.dart';
 import 'package:veggieseasons_adaptive/styles.dart';
 
@@ -55,24 +54,14 @@ class _InfoViewState extends State<InfoView> {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (iOSAdaptation == AdaptationLevel.minimal)
-                Switch(
-                  value: widget.veggie.isFavorite,
-                  onChanged: (value) {
-                    setState(() {
-                      widget.veggie.isFavorite = value;
-                    });
-                  },
-                )
-              else
-                Switch.adaptive(
-                  value: widget.veggie.isFavorite,
-                  onChanged: (value) {
-                    setState(() {
-                      widget.veggie.isFavorite = value;
-                    });
-                  },
-                ),
+              Switch.adaptive(
+                value: widget.veggie.isFavorite,
+                onChanged: (value) {
+                  setState(() {
+                    widget.veggie.isFavorite = value;
+                  });
+                },
+              ),
               const SizedBox(width: 8),
               Text(
                 'Save to Garden',

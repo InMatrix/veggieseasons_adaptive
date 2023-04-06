@@ -12,7 +12,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          colorSchemeSeed: const Color(0xff6750a4), useMaterial3: true),
+        colorSchemeSeed: const Color(0xff6750a4),
+        // colorSchemeSeed: CupertinoColors.systemBackground,
+        useMaterial3: true,
+      ),
       home: const MyHomePage(title: 'Veggie Seasons Adaptive'),
     );
   }

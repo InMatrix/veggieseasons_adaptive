@@ -49,6 +49,7 @@ doc/api/
 .pub/
 /build/
 .flutter-plugins-dependencies
+.fvm/
 
 # Android related
 **/android/**/gradle-wrapper.jar

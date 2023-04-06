@@ -1,6 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:veggieseasons_adaptive/data/adaptation_settings.dart';
 import 'package:veggieseasons_adaptive/data/veggie.dart';
 import 'package:veggieseasons_adaptive/data/veggie_data.dart';
 import 'package:veggieseasons_adaptive/widgets/veggie_headline.dart';
@@ -34,21 +35,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget _createSearchBox() {
-    if (iOSAdaptation == AdaptationLevel.minimal) {
-      return Padding(
-        padding: const EdgeInsets.all(8),
-        child: TextField(
-          controller: _controller,
-          autofocus: true,
-          decoration: InputDecoration(
-            prefixIcon: Icon(Icons.search),
-            border: OutlineInputBorder(),
-            hintText: 'Search',
-          ),
-          onChanged: _onTextChanged,
-        ),
-      );
-    } else {
+    if (Platform.isIOS) {
       return Padding(
         padding: const EdgeInsets.all(8),
         child: SizedBox(
@@ -72,6 +59,20 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             onChanged: _onTextChanged,
           ),
+        ),
+      );
+    } else {
+      return Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextField(
+          controller: _controller,
+          autofocus: true,
+          decoration: InputDecoration(
+            prefixIcon: Icon(Icons.search),
+            border: OutlineInputBorder(),
+            hintText: 'Search',
+          ),
+          onChanged: _onTextChanged,
         ),
       );
     }

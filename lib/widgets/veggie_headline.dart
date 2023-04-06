@@ -1,5 +1,6 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:veggieseasons_adaptive/data/adaptation_settings.dart';
 import 'package:veggieseasons_adaptive/data/veggie.dart';
 import 'package:veggieseasons_adaptive/styles.dart';
 import 'package:veggieseasons_adaptive/screens/details.dart';
@@ -77,9 +78,7 @@ class VeggieHeadline extends StatelessWidget {
         );
       },
       // build each item using either `_itemRow` or `_itemListTile`
-      child: iOSAdaptation == AdaptationLevel.minimal
-          ? _itemListTile(themeData)
-          : _itemRow(themeData),
+      child: Platform.isIOS ? _itemRow(themeData) : _itemListTile(themeData),
     );
   }
 
