@@ -59,23 +59,17 @@ class SettingScreen extends StatelessWidget {
     final themeData = Theme.of(context);
     return CustomScrollView(
       slivers: [
-        SliverAppBar(
+        SliverAppBar.large(
           surfaceTintColor: Colors.transparent,
           toolbarHeight: 44,
           collapsedHeight: 44,
-          pinned: true,
-          flexibleSpace: FlexibleSpaceBar(
-            centerTitle: Platform.isIOS ? false : true,
-            title: Text(
-              "Settings",
-              style: Styles.appBarTitle(themeData),
-            ),
-          ),
-          // Make the initial height of the SliverAppBar larger than normal.
           expandedHeight: 117,
-          shadowColor:
-              Platform.isIOS ? CupertinoColors.darkBackgroundGray : null,
-          scrolledUnderElevation: Platform.isIOS ? .1 : null,
+          title: Text("Settings", style: Styles.headlineText(themeData)),
+          // flexibleSpace: FlexibleSpaceBar(
+          //   title: Text("Settings", style: themeData.textTheme.titleMedium),
+          //   expandedTitleScale: 2.0,
+          //   centerTitle: false,
+          // ),
         ),
         SliverList(
           // Use a delegate to build items as they're scrolled on screen.
