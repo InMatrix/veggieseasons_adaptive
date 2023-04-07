@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:veggieseasons_adaptive/data/veggie.dart';
 import 'package:veggieseasons_adaptive/screens/details.dart';
+import 'package:veggieseasons_adaptive/styles.dart';
 
 class VeggieCard extends StatelessWidget {
   const VeggieCard(this.veggie, {super.key});
@@ -10,7 +11,7 @@ class VeggieCard extends StatelessWidget {
   final Veggie veggie;
 
   Widget _buildDetails(BuildContext context) {
-    // final themeData = CupertinoTheme.of(context);
+    final themeData = Theme.of(context);
     return Container(
       color: const Color(0x90ffffff),
       child: Padding(
@@ -20,7 +21,7 @@ class VeggieCard extends StatelessWidget {
           children: [
             Text(
               veggie.name,
-              style: Theme.of(context).textTheme.headlineLarge,
+              style: Styles.headlineText(themeData),
             ),
             Text(
               veggie.shortDescription,

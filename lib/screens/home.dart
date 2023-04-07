@@ -6,6 +6,7 @@ import 'package:veggieseasons_adaptive/data/veggie_data.dart';
 import 'package:veggieseasons_adaptive/screens/favorites.dart';
 import 'package:veggieseasons_adaptive/screens/search.dart';
 import 'package:veggieseasons_adaptive/screens/settings.dart';
+import 'package:veggieseasons_adaptive/styles.dart';
 import 'package:veggieseasons_adaptive/widgets/veggie_card.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -115,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   Text(
                     "In season today",
-                    style: Theme.of(context).textTheme.headlineLarge,
+                    style: Styles.headlineText(Theme.of(context))
                   ),
                 ],
               ),

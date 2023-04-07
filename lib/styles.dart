@@ -2,9 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:veggieseasons_adaptive/data/veggie.dart';
 
@@ -23,11 +24,17 @@ abstract class Styles {
   //   ),
   // );
 
-  // static TextStyle headlineText(CupertinoThemeData themeData) =>
-  //     themeData.textTheme.textStyle.copyWith(
-  //       fontSize: 32,
-  //       fontWeight: FontWeight.bold,
-  //     );
+  static TextStyle headlineText(ThemeData themeData) => Platform.isIOS
+      ? themeData.textTheme.headlineLarge!.copyWith(
+          fontWeight: FontWeight.bold,
+        )
+      : themeData.textTheme.headlineLarge!;
+
+  static TextStyle appBarTitle(ThemeData themeData) => Platform.isIOS
+      ? themeData.textTheme.headlineSmall!.copyWith(
+          fontWeight: FontWeight.bold,
+        )
+      : themeData.textTheme.headlineLarge!;
 
   // static TextStyle minorText(CupertinoThemeData themeData) =>
   //     themeData.textTheme.textStyle.copyWith(

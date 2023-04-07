@@ -13,6 +13,7 @@ class InfoView extends StatefulWidget {
 class _InfoViewState extends State<InfoView> {
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -42,7 +43,7 @@ class _InfoViewState extends State<InfoView> {
           const SizedBox(height: 8),
           Text(
             widget.veggie.name,
-            style: Theme.of(context).textTheme.headlineLarge,
+            style: Styles.headlineText(themeData),
           ),
           const SizedBox(height: 8),
           Text(
