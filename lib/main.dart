@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:veggieseasons_adaptive/screens/home.dart';
 
@@ -12,9 +15,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorSchemeSeed: const Color(0xff6750a4),
-        // colorSchemeSeed: CupertinoColors.systemBackground,
         useMaterial3: true,
+        colorSchemeSeed: Platform.isIOS
+            ? CupertinoColors.systemGrey
+            : const Color(0xff6750a4),
       ),
       home: const MyHomePage(title: 'Veggie Seasons Adaptive'),
     );
