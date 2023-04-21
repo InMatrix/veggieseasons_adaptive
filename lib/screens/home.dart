@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:veggieseasons_adaptive/data/veggie.dart';
@@ -69,33 +72,58 @@ class _MyHomePageState extends State<MyHomePage> {
         SearchScreen(),
         SettingScreen(),
       ][currentPageIndex],
-      bottomNavigationBar: NavigationBar(
-        onDestinationSelected: (int index) {
-          setState(() {
-            currentPageIndex = index;
-          });
-        },
-        selectedIndex: currentPageIndex,
-        destinations: const <Widget>[
-          NavigationDestination(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.bookmark),
-            icon: Icon(Icons.bookmark_border),
-            label: 'My Garden',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-      ),
+      bottomNavigationBar: Platform.isIOS
+          ? CupertinoTabBar(
+              currentIndex: currentPageIndex,
+              onTap: (index) {
+                setState(() => currentPageIndex = index);
+              },
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.home),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.book),
+                  label: 'My Garden',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.search),
+                  label: 'Search',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(CupertinoIcons.settings),
+                  label: 'Settings',
+                ),
+              ],
+            )
+          : NavigationBar(
+              onDestinationSelected: (int index) {
+                setState(() {
+                  currentPageIndex = index;
+                });
+              },
+              selectedIndex: currentPageIndex,
+              destinations: const <Widget>[
+                NavigationDestination(
+                  icon: Icon(Icons.home),
+                  label: 'Home',
+                ),
+                NavigationDestination(
+                  selectedIcon: Icon(Icons.bookmark),
+                  icon: Icon(Icons.bookmark_border),
+                  label: 'My Garden',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.search),
+                  label: 'Search',
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.settings),
+                  label: 'Settings',
+                ),
+              ],
+            ),
       appBar: currentPageIndex == 1 ? AppBar(title: Text("My Garden")) : null,
     );
   }
@@ -114,10 +142,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     dateString.toUpperCase(),
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
-                  Text(
-                    "In season today",
-                    style: Styles.headlineText(Theme.of(context))
-                  ),
+                  Text("In season today",
+                      style: Styles.headlineText(Theme.of(context))),
                 ],
               ),
             );
