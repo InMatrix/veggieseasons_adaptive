@@ -23,6 +23,16 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int currentPageIndex = 0;
 
+  final Map<String, Icon> _navigationItems = {
+    'Home': Platform.isIOS ? Icon(CupertinoIcons.home) : Icon(Icons.home),
+    'My Garden': Platform.isIOS
+        ? Icon(CupertinoIcons.book)
+        : Icon(Icons.bookmark_border),
+    'Search': Platform.isIOS ? Icon(CupertinoIcons.search) : Icon(Icons.search),
+    'Settings':
+        Platform.isIOS ? Icon(CupertinoIcons.settings) : Icon(Icons.settings),
+  };
+
   Season? _getSeasonForDate(DateTime date) {
     // Technically the start and end dates of seasons can vary by a day or so,
     // but this is close enough for produce.
@@ -78,24 +88,13 @@ class _MyHomePageState extends State<MyHomePage> {
               onTap: (index) {
                 setState(() => currentPageIndex = index);
               },
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.home),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.book),
-                  label: 'My Garden',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.search),
-                  label: 'Search',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.settings),
-                  label: 'Settings',
-                ),
-              ],
+              items: _navigationItems.entries
+                  .map<BottomNavigationBarItem>(
+                      (entry) => BottomNavigationBarItem(
+                            icon: entry.value,
+                            label: entry.key,
+                          ))
+                  .toList(),
             )
           : NavigationBar(
               onDestinationSelected: (int index) {
@@ -104,25 +103,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
               },
               selectedIndex: currentPageIndex,
-              destinations: const <Widget>[
-                NavigationDestination(
-                  icon: Icon(Icons.home),
-                  label: 'Home',
-                ),
-                NavigationDestination(
-                  selectedIcon: Icon(Icons.bookmark),
-                  icon: Icon(Icons.bookmark_border),
-                  label: 'My Garden',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.search),
-                  label: 'Search',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.settings),
-                  label: 'Settings',
-                ),
-              ],
+              destinations: _navigationItems.entries
+                  .map<Widget>((entry) => NavigationDestination(
+                        icon: entry.value,
+                        label: entry.key,
+                      ))
+                  .toList(),
             ),
       appBar: currentPageIndex == 1 ? AppBar(title: Text("My Garden")) : null,
     );
